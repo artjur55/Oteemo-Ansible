@@ -1,0 +1,30 @@
+---
+- name: Installing mysql server
+  apt: name=mysql-server state=present
+
+- name: Starting mysql
+  service: name=mysql state=started enabled=true
+
+- name: Installing python-mysql
+  apt: name=python-mysqldb state=present
+
+- name: Creating DB
+  mysql_db: name=testdb state=present collation=utf8_general_ci
+
+- name: Creating db user
+  mysql_user: name=testuser password=Ch@ng3m3! priv=*.*:ALL host=localhost state=present
+
+- name: Copying test data
+  copy: src=dump.sql dest=/tmp/dump.sql
+
+- name: Inserting test data
+  shell: mysql -u testuser -p testdb < /tmp/dump.sql
+
+- name: Installing php mysql
+  apt: name=php-mysql state=present
+
+- name: Restarting Apache
+  service: name=apache2 state=restarted
+
+- name: Installing db php script
+  copy: src=db.php dest=/var/www/html/db.php mode=0664

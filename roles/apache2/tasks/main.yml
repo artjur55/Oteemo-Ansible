@@ -1,0 +1,12 @@
+---
+- name: Installing Apache
+  apt: name=apache2 state=present
+
+- name: Installing PHP 
+  apt: name=libapache2-mod-php state=present
+
+- name: Starting Apache
+  service: name=apache2 state=started enabled=yes
+
+- name: Moving hello world index.php to routing directory
+  copy: src=index.php dest=/var/www/html/index.php mode=0664
