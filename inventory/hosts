@@ -1,0 +1,5 @@
+[local]
+127.0.0.1 ansible_connection=local ansible_python_interpreter=python
+
+[aws-ec2]
+34.229.18.118 ansible_user=ubuntu

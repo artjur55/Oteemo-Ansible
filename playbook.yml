@@ -1,5 +1,10 @@
 ---
-- hosts: all
+- hosts: aws-ec2
+  vars:
+    mysql_users:
+      - name: testuser
+        password: Ch@ng3m3!
+        priv: "testuser.*:ALL"
   roles:
     - apache2
     - mysql

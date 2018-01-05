@@ -18,7 +18,8 @@
   copy: src=dump.sql dest=/tmp/dump.sql
 
 - name: Inserting test data
-  shell: mysql -u testuser -p testdb < /tmp/dump.sql
+  mysql_db: name=testdb state=import target=/tmp/dump.sql
+#  shell: mysql -u testuser -p testdb < /tmp/dump.sql
 
 - name: Installing php mysql
   apt: name=php-mysql state=present
